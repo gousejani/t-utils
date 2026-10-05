@@ -1,5 +1,33 @@
 #!/bin/bash 
 
+VERSION="0.1.0"
+
+case "${1-}" in
+    --help)
+        cat <<'EOF'
+Usage: u -a MESSAGE
+       u -g [-d DAYS_AGO]
+       u --help
+       u --version
+
+Options:
+  -a MESSAGE   Record an update for today (quote messages containing spaces).
+  -g           Show updates (today by default).
+  -d DAYS_AGO  Read updates from this many days ago; use with -g.
+  --help       Show this help and exit.
+  --version    Show the version and exit.
+
+Storage: $UPDATE_DIR/YYYY-MM-DD (default: $HOME/.updates/YYYY-MM-DD).
+Requires macOS's date -v option. Adding always writes to today.
+EOF
+        exit 0
+        ;;
+    --version)
+        echo "u (t-utils) $VERSION"
+        exit 0
+        ;;
+esac
+
 if [[ -n "$UPDATE_DIR" ]]; then 
     UPDATE_DIR="$UPDATE_DIR" 
 else 

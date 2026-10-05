@@ -1,5 +1,32 @@
 #!/bin/bash 
 
+VERSION="0.1.0"
+
+case "${1-}" in
+    --help)
+        cat <<'EOF'
+Usage: t [-a MESSAGE | -o]
+       t --help
+       t --version
+
+With no options, show your todos.
+
+Options:
+  -a MESSAGE  Add a todo (quote messages containing spaces).
+  -o          Edit todos in Neovim (nvim).
+  --help      Show this help and exit.
+  --version   Show the version and exit.
+
+Storage: $TODOS_DIR/todo (default: $HOME/.todos/todo).
+EOF
+        exit 0
+        ;;
+    --version)
+        echo "t (t-utils) $VERSION"
+        exit 0
+        ;;
+esac
+
 if [[ -n "$TODOS_DIR" ]]; then 
     TODOS_DIR="$TODOS_DIR" 
 else 
